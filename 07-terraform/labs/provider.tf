@@ -5,8 +5,14 @@ terraform {
       version = "6.51.0"
     }
   }
+
+  backend "s3" {
+    bucket = "terraform-state-kasim"
+    key    = "terraform.tfstate"
+    region = "eu-west-2"
+  }
 }
 
 provider "aws" {
-  # Configuration options
+  region = "eu-west-2"
 }
