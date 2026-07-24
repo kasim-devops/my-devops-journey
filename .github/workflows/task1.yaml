@@ -1,0 +1,35 @@
+name: Coderco Task 1
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      working-directory: 08-cicd/projects/task-1
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      working-directory: 08-cicd/projects/task-1
+      run: |
+        python -m unittest test_app.py
+        
+    - name: Lint with flake8
+      working-directory: 08-cicd/projects/task-1
+      run: flake8 app.py
